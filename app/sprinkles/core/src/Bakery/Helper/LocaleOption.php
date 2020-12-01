@@ -28,7 +28,7 @@ trait LocaleOption
      */
     protected function askForLocale(string $name, bool $default = true): string
     {
-        /** @var \UserFrosting\Sprinkle\Core\I18n\SiteLocale */
+        /** @var \UserFrosting\Sprinkle\Frontend\I18n\SiteLocale */
         $localeService = $this->ci->locale;
 
         $availableLocales = $localeService->getAvailableIdentifiers();
@@ -46,7 +46,7 @@ trait LocaleOption
 
     protected function getLocale(?string $option): Locale
     {
-        /** @var \UserFrosting\Sprinkle\Core\I18n\SiteLocale */
+        /** @var \UserFrosting\Sprinkle\Frontend\I18n\SiteLocale */
         $localeService = $this->ci->locale;
 
         $identifier = ($option) ?: $this->askForLocale('locale');

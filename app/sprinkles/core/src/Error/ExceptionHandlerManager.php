@@ -62,7 +62,7 @@ class ExceptionHandlerManager
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $exception)
     {
         // Default exception handler class
-        $handlerClass = '\UserFrosting\Sprinkle\Core\Error\Handler\ExceptionHandler';
+        $handlerClass = '\UserFrosting\Sprinkle\Frontend\Error\Handler\ExceptionHandler';
 
         // Get the last matching registered handler class, and instantiate it
         foreach ($this->exceptionHandlers as $exceptionClass => $matchedHandlerClass) {
@@ -88,7 +88,7 @@ class ExceptionHandlerManager
      */
     public function registerHandler($exceptionClass, $handlerClass)
     {
-        if (!is_a($handlerClass, '\UserFrosting\Sprinkle\Core\Error\Handler\ExceptionHandlerInterface', true)) {
+        if (!is_a($handlerClass, '\UserFrosting\Sprinkle\Frontend\Error\Handler\ExceptionHandlerInterface', true)) {
             throw new \InvalidArgumentException('Registered exception handler must implement ExceptionHandlerInterface!');
         }
 

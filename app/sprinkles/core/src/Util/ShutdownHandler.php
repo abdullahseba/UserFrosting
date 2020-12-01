@@ -11,7 +11,7 @@
 namespace UserFrosting\Sprinkle\Core\Util;
 
 use Psr\Container\ContainerInterface;
-use UserFrosting\Sprinkle\Core\Http\Concerns\DeterminesContentType;
+use UserFrosting\Sprinkle\Frontend\Http\Concerns\DeterminesContentType;
 
 /**
  * Registers a handler to be invoked whenever the application shuts down.
@@ -161,9 +161,9 @@ class ShutdownHandler
 
         return sprintf(
             "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'>" .
-            '<title>%s</title><style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,' .
-            'sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}' .
-            '</style></head><body><h1>%s</h1>%s</body></html>',
+                '<title>%s</title><style>body{margin:0;padding:30px;font:12px/1.5 Helvetica,Arial,Verdana,' .
+                'sans-serif;}h1{margin:0;font-size:48px;font-weight:normal;line-height:48px;}' .
+                '</style></head><body><h1>%s</h1>%s</body></html>',
             $title,
             $title,
             $html

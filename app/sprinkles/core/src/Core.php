@@ -12,10 +12,7 @@ namespace UserFrosting\Sprinkle\Core;
 
 use Psr\Container\ContainerInterface;
 use RocketTheme\Toolbox\Event\Event;
-use UserFrosting\Sprinkle\Core\Csrf\SlimCsrfProvider;
 use UserFrosting\Sprinkle\Core\Database\Models\Model;
-use UserFrosting\Sprinkle\Core\I18n\LocaleServicesProvider;
-use UserFrosting\Sprinkle\Core\I18n\TranslatorServicesProvider;
 use UserFrosting\Sprinkle\Core\Util\EnvironmentInfo;
 use UserFrosting\Sprinkle\Core\Util\ShutdownHandler;
 use UserFrosting\System\Sprinkle\Sprinkle;
@@ -27,13 +24,6 @@ use UserFrosting\System\Sprinkle\Sprinkle;
  */
 class Core extends Sprinkle
 {
-    /**
-     * @var string[] List of services provider to register
-     */
-    protected $servicesproviders = [
-        LocaleServicesProvider::class,
-        TranslatorServicesProvider::class,
-    ];
 
     /**
      * Create a new Sprinkle object.
@@ -55,7 +45,6 @@ class Core extends Sprinkle
         return [
             'onSprinklesInitialized'      => ['onSprinklesInitialized', 0],
             'onSprinklesRegisterServices' => ['onSprinklesRegisterServices', 0],
-            'onAddGlobalMiddleware'       => ['onAddGlobalMiddleware', 0],
             'onAppInitialize'             => ['onAppInitialize', 0],
         ];
     }
@@ -136,18 +125,6 @@ class Core extends Sprinkle
         $this->ci->router->loadRoutes($event->getApp());
     }
 
-    /**
-     * Add CSRF middleware.
-     *
-     * @param Event $event
-     */
-    public function onAddGlobalMiddleware(Event $event)
-    {
-        // Don't register CSRF if CLI
-        if (!$this->ci->cli) {
-            SlimCsrfProvider::registerMiddleware($event->getApp(), $this->ci->request, $this->ci->csrf);
-        }
-    }
 
     /**
      * Register Core sprinkle locator streams.

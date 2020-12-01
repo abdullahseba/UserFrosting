@@ -29,8 +29,8 @@ class LocaleInfoCommand extends BaseCommand
     protected function configure()
     {
         $this->setName('locale:info')
-             ->setHelp('This command list all available locale as well as the defaut locale.')
-             ->setDescription('Informations about available locales');
+            ->setHelp('This command list all available locale as well as the defaut locale.')
+            ->setDescription('Informations about available locales');
     }
 
     /**
@@ -40,7 +40,7 @@ class LocaleInfoCommand extends BaseCommand
     {
         $this->io->title('Available locales');
 
-        /** @var \UserFrosting\Sprinkle\Core\I18n\SiteLocale */
+        /** @var \UserFrosting\Sprinkle\Frontend\I18n\SiteLocale */
         $localeService = $this->ci->locale;
 
         // Get available locales

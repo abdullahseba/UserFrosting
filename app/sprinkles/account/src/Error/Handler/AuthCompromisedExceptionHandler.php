@@ -10,7 +10,7 @@
 
 namespace UserFrosting\Sprinkle\Account\Error\Handler;
 
-use UserFrosting\Sprinkle\Core\Error\Handler\HttpExceptionHandler;
+use UserFrosting\Sprinkle\Frontend\Error\Handler\HttpExceptionHandler;
 
 /**
  * Handler for AuthCompromisedExceptions.

@@ -12,7 +12,7 @@ namespace UserFrosting\Tests\Integration\Error\Renderer;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use UserFrosting\Sprinkle\Core\Error\Renderer\WhoopsRenderer;
+use UserFrosting\Sprinkle\Frontend\Error\Renderer\WhoopsRenderer;
 use UserFrosting\Tests\TestCase;
 use Whoops\Exception\Inspector;
 

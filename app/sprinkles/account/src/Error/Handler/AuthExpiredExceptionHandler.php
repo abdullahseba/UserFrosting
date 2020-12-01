@@ -11,7 +11,7 @@
 namespace UserFrosting\Sprinkle\Account\Error\Handler;
 
 use Psr\Http\Message\ResponseInterface;
-use UserFrosting\Sprinkle\Core\Error\Handler\HttpExceptionHandler;
+use UserFrosting\Sprinkle\Frontend\Error\Handler\HttpExceptionHandler;
 
 /**
  * Handler for AuthExpiredExceptions.

@@ -1,0 +1,19 @@
+{
+  "autoload": {
+    "psr-4": {
+      "UserFrosting\\Sprinkle\\Frontend\\": "src/"
+    }
+  },
+  "require": {
+    "slim/csrf": "^0.8",
+    "slim/slim": "^3.12",
+    "slim/twig-view": "^2.5",
+    "symfony/http-foundation": "*",
+    "twig/twig": "^2.11",
+    "userfrosting/assets": "^6.1.0",
+    "userfrosting/cache": "~4.4.0",
+    "userfrosting/i18n": "~4.4.0",
+    "userfrosting/session": "~4.4.0"
+
+}
+}

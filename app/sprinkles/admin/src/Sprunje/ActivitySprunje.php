@@ -11,7 +11,7 @@
 namespace UserFrosting\Sprinkle\Admin\Sprunje;
 
 use Illuminate\Database\Schema\Builder;
-use UserFrosting\Sprinkle\Core\Sprunje\Sprunje;
+use UserFrosting\Sprinkle\Frontend\Sprunje\Sprunje;
 
 /**
  * ActivitySprunje.

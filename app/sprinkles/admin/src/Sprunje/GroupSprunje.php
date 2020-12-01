@@ -10,7 +10,7 @@
 
 namespace UserFrosting\Sprinkle\Admin\Sprunje;
 
-use UserFrosting\Sprinkle\Core\Sprunje\Sprunje;
+use UserFrosting\Sprinkle\Frontend\Sprunje\Sprunje;
 
 /**
  * GroupSprunje.

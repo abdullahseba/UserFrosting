@@ -10,7 +10,7 @@
 
 namespace UserFrosting\Sprinkle\Account\I18n;
 
-use UserFrosting\Sprinkle\Core\I18n\SiteLocale as CoreSiteLocale;
+use UserFrosting\Sprinkle\Frontend\I18n\SiteLocale as CoreSiteLocale;
 
 /**
  * Helper methods for the locale system.

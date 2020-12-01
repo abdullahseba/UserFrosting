@@ -11,8 +11,8 @@
 namespace UserFrosting\Sprinkle\Admin\Sprunje;
 
 use Illuminate\Database\Schema\Builder;
-use UserFrosting\Sprinkle\Core\Facades\Translator;
-use UserFrosting\Sprinkle\Core\Sprunje\Sprunje;
+use UserFrosting\Sprinkle\Frontend\Facades\Translator;
+use UserFrosting\Sprinkle\Frontend\Sprunje\Sprunje;
 
 /**
  * UserSprunje.
@@ -92,8 +92,8 @@ class UserSprunje extends Sprunje
         $query->where(function ($query) use ($values) {
             foreach ($values as $value) {
                 $query->orLike('first_name', $value)
-                        ->orLike('last_name', $value)
-                        ->orLike('email', $value);
+                    ->orLike('last_name', $value)
+                    ->orLike('email', $value);
             }
         });
 
