@@ -8,7 +8,7 @@
  * @license   https://github.com/userfrosting/UserFrosting/blob/master/LICENSE.md (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\Account\Error\Handler;
+namespace UserFrosting\Sprinkle\Frontend\Error\Handler;
 
 use Psr\Http\Message\ResponseInterface;
 use UserFrosting\Sprinkle\Frontend\Error\Handler\HttpExceptionHandler;

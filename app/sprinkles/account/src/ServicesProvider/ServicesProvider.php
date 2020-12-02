@@ -25,7 +25,6 @@ use UserFrosting\Sprinkle\Account\Log\UserActivityDatabaseHandler;
 use UserFrosting\Sprinkle\Account\Log\UserActivityProcessor;
 use UserFrosting\Sprinkle\Account\Repository\PasswordResetRepository;
 use UserFrosting\Sprinkle\Account\Repository\VerificationRepository;
-use UserFrosting\Sprinkle\Account\Twig\AccountExtension;
 use UserFrosting\Sprinkle\Core\Log\MixedFormatter;
 
 /**
@@ -42,18 +41,7 @@ class ServicesProvider
      */
     public function register(ContainerInterface $container)
     {
-        /*
-         * Extend the asset manager service to see assets for the current user's theme.
-         *
-         * @return \UserFrosting\Assets\Assets
-         */
-        $container->extend('assets', function ($assets, $c) {
 
-            // Force load the current user to add it's theme assets ressources
-            $currentUser = $c->currentUser;
-
-            return $assets;
-        });
 
         /*
          * Extend the 'classMapper' service to register model classes.
@@ -80,53 +68,17 @@ class ServicesProvider
          *
          * Custom handlers added: ForbiddenExceptionHandler
          *
-         * @return \UserFrosting\Sprinkle\Core\Error\ExceptionHandlerManager
+         * @return \UserFrosting\Sprinkle\Frontend\Error\ExceptionHandlerManager
          */
         $container->extend('errorHandler', function ($handler, $c) {
             // Register the ForbiddenExceptionHandler.
-            $handler->registerHandler('\UserFrosting\Support\Exception\ForbiddenException', '\UserFrosting\Sprinkle\Account\Error\Handler\ForbiddenExceptionHandler');
+            $handler->registerHandler('\UserFrosting\Support\Exception\ForbiddenException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\ForbiddenExceptionHandler');
             // Register the AuthExpiredExceptionHandler
-            $handler->registerHandler('\UserFrosting\Sprinkle\Account\Authenticate\Exception\AuthExpiredException', '\UserFrosting\Sprinkle\Account\Error\Handler\AuthExpiredExceptionHandler');
+            $handler->registerHandler('\UserFrosting\Sprinkle\Account\Authenticate\Exception\AuthExpiredException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\AuthExpiredExceptionHandler');
             // Register the AuthCompromisedExceptionHandler.
-            $handler->registerHandler('\UserFrosting\Sprinkle\Account\Authenticate\Exception\AuthCompromisedException', '\UserFrosting\Sprinkle\Account\Error\Handler\AuthCompromisedExceptionHandler');
+            $handler->registerHandler('\UserFrosting\Sprinkle\Account\Authenticate\Exception\AuthCompromisedException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\AuthCompromisedExceptionHandler');
 
             return $handler;
-        });
-
-        /*
-         * Extends the 'view' service with the AccountExtension for Twig.
-         *
-         * Adds account-specific functions, globals, filters, etc to Twig, and the path to templates for the user theme.
-         *
-         * @return \Slim\Views\Twig
-         */
-        $container->extend('view', function ($view, $c) {
-            $twig = $view->getEnvironment();
-            $extension = new AccountExtension($c);
-            $twig->addExtension($extension);
-
-            // Add paths for user theme, if a user is logged in
-            // We catch any authorization-related exceptions, so that error pages can be rendered.
-            try {
-                /** @var \UserFrosting\Sprinkle\Account\Authenticate\Authenticator $authenticator */
-                $authenticator = $c->authenticator;
-                $currentUser = $c->currentUser;
-            } catch (\Exception $e) {
-                return $view;
-            }
-
-            // Register user theme template with Twig Loader
-            if ($authenticator->check()) {
-                $themePath = $c->locator->findResource('templates://', true, false);
-                if ($themePath) {
-                    $loader = $twig->getLoader();
-                    $loader->prependPath($themePath);
-                    // Add namespaced path as well
-                    $loader->addPath($themePath, $currentUser->theme);
-                }
-            }
-
-            return $view;
         });
 
         /*

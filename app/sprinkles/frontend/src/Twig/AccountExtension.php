@@ -8,7 +8,7 @@
  * @license   https://github.com/userfrosting/UserFrosting/blob/master/LICENSE.md (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\Account\Twig;
+namespace UserFrosting\Sprinkle\Frontend\Twig;
 
 use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;

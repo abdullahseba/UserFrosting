@@ -22,6 +22,8 @@ use UserFrosting\Sprinkle\Frontend\Alert\CacheAlertStream;
 use UserFrosting\Sprinkle\Frontend\Alert\SessionAlertStream;
 use UserFrosting\Sprinkle\Frontend\Csrf\SlimCsrfProvider;
 use UserFrosting\Sprinkle\Frontend\Error\Handler\NotFoundExceptionHandler;
+use UserFrosting\Sprinkle\Frontend\Twig\AccountExtension;
+
 use UserFrosting\Sprinkle\Core\Router;
 use UserFrosting\Sprinkle\Frontend\Twig\CoreExtension;
 use UserFrosting\Sprinkle\Core\Util\RawAssetBundles;
@@ -50,7 +52,7 @@ class ServicesProvider
          * Persists error/success messages between requests in the session.
          *
          * @throws \Exception                                    If alert storage handler is not supported
-         * @return \UserFrosting\Sprinkle\Core\Alert\AlertStream
+         * @return \UserFrosting\Sprinkle\Frontend\Alert\AlertStream
          */
         $container['alerts'] = function ($c) {
             $config = $c->config;
@@ -134,6 +136,10 @@ class ServicesProvider
                 $assets->addAssetBundles($bundles);
             }
 
+            // Force load the current user to add it's theme assets ressources
+            $currentUser = $c->currentUser;
+
+
             return $assets;
         };
 
@@ -147,6 +153,24 @@ class ServicesProvider
         $container['csrf'] = function ($c) {
             return SlimCsrfProvider::setupService($c);
         };
+
+        /*
+         * Extends the 'errorHandler' service with custom exception handlers.
+         *
+         * Custom handlers added: ForbiddenExceptionHandler
+         *
+         * @return \UserFrosting\Sprinkle\Frontend\Error\ExceptionHandlerManager
+         */
+        $container->extend('errorHandler', function ($handler, $c) {
+            // Register the ForbiddenExceptionHandler.
+            $handler->registerHandler('\UserFrosting\Support\Exception\ForbiddenException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\ForbiddenExceptionHandler');
+            // Register the AuthExpiredExceptionHandler
+            $handler->registerHandler('\UserFrosting\Sprinkle\Account\Authenticate\Exception\AuthExpiredException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\AuthExpiredExceptionHandler');
+            // Register the AuthCompromisedExceptionHandler.
+            $handler->registerHandler('\UserFrosting\Sprinkle\Account\Authenticate\Exception\AuthCompromisedException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\AuthCompromisedExceptionHandler');
+
+            return $handler;
+        });
 
         /*
          * Error-handler for 404 errors.  Notice that we manually create a UserFrosting NotFoundException,
@@ -220,6 +244,30 @@ class ServicesProvider
             // Register the core UF extension with Twig
             $coreExtension = new CoreExtension($c);
             $view->addExtension($coreExtension);
+
+            $accountExtension = new AccountExtension($c);
+            $twig->addExtension($accountExtension);
+
+            // Add paths for user theme, if a user is logged in
+            // We catch any authorization-related exceptions, so that error pages can be rendered.
+            try {
+                /** @var \UserFrosting\Sprinkle\Account\Authenticate\Authenticator $authenticator */
+                $authenticator = $c->authenticator;
+                $currentUser = $c->currentUser;
+            } catch (\Exception $e) {
+                return $view;
+            }
+
+            // Register user theme template with Twig Loader
+            if ($authenticator->check()) {
+                $themePath = $c->locator->findResource('templates://', true, false);
+                if ($themePath) {
+                    $loader = $twig->getLoader();
+                    $loader->prependPath($themePath);
+                    // Add namespaced path as well
+                    $loader->addPath($themePath, $currentUser->theme);
+                }
+            }
 
             return $view;
         };

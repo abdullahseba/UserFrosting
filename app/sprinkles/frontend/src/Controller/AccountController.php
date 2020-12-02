@@ -8,7 +8,7 @@
  * @license   https://github.com/userfrosting/UserFrosting/blob/master/LICENSE.md (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\Account\Controller;
+namespace UserFrosting\Sprinkle\Frontend\Controller;
 
 use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -19,7 +19,7 @@ use UserFrosting\Fortress\RequestDataTransformer;
 use UserFrosting\Fortress\RequestSchema;
 use UserFrosting\Fortress\ServerSideValidator;
 use UserFrosting\Sprinkle\Account\Account\Registration;
-use UserFrosting\Sprinkle\Account\Controller\Exception\SpammyRequestException;
+use UserFrosting\Sprinkle\Frontend\Controller\Exception\SpammyRequestException;
 use UserFrosting\Sprinkle\Account\Facades\Password;
 use UserFrosting\Sprinkle\Account\Util\Util as AccountUtil;
 use UserFrosting\Sprinkle\Core\Controller\SimpleController;
@@ -130,7 +130,7 @@ class AccountController extends SimpleController
         // GET parameters
         $params = $request->getQueryParams();
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */
@@ -192,7 +192,7 @@ class AccountController extends SimpleController
      */
     public function forgotPassword(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */
@@ -254,12 +254,12 @@ class AccountController extends SimpleController
                 // Create and send email
                 $message = new TwigMailMessage($this->ci->view, 'mail/password-reset.html.twig');
                 $message->from($config['address_book.admin'])
-                        ->addEmailRecipient(new EmailRecipient($user->email, $user->full_name))
-                        ->addParams([
-                            'user'         => $user,
-                            'token'        => $passwordReset->getToken(),
-                            'request_date' => Carbon::now()->format('Y-m-d H:i:s'),
-                        ]);
+                    ->addEmailRecipient(new EmailRecipient($user->email, $user->full_name))
+                    ->addParams([
+                        'user'         => $user,
+                        'token'        => $passwordReset->getToken(),
+                        'request_date' => Carbon::now()->format('Y-m-d H:i:s'),
+                    ]);
 
                 $this->ci->mailer->send($message);
             }
@@ -309,8 +309,8 @@ class AccountController extends SimpleController
         $captcha->generateRandomCode();
 
         return $response->withStatus(200)
-                    ->withHeader('Content-Type', 'image/png;base64')
-                    ->write($captcha->getImage());
+            ->withHeader('Content-Type', 'image/png;base64')
+            ->write($captcha->getImage());
     }
 
     /**
@@ -336,7 +336,7 @@ class AccountController extends SimpleController
      */
     public function login(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Account\Database\Models\Interfaces\UserInterface $currentUser */
@@ -797,7 +797,7 @@ class AccountController extends SimpleController
      */
     public function profile(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Account\Authorize\AuthorizationManager */
@@ -902,7 +902,7 @@ class AccountController extends SimpleController
      */
     public function register(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */
@@ -1034,7 +1034,7 @@ class AccountController extends SimpleController
      */
     public function resendVerification(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */
@@ -1097,11 +1097,11 @@ class AccountController extends SimpleController
                 $message = new TwigMailMessage($this->ci->view, 'mail/resend-verification.html.twig');
 
                 $message->from($config['address_book.admin'])
-                        ->addEmailRecipient(new EmailRecipient($user->email, $user->full_name))
-                        ->addParams([
-                            'user'  => $user,
-                            'token' => $verification->getToken(),
-                        ]);
+                    ->addEmailRecipient(new EmailRecipient($user->email, $user->full_name))
+                    ->addParams([
+                        'user'  => $user,
+                        'token' => $verification->getToken(),
+                    ]);
 
                 $this->ci->mailer->send($message);
             }
@@ -1133,7 +1133,7 @@ class AccountController extends SimpleController
      */
     public function setPassword(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */
@@ -1216,7 +1216,7 @@ class AccountController extends SimpleController
      */
     public function settings(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Account\Authorize\AuthorizationManager */
@@ -1329,7 +1329,7 @@ class AccountController extends SimpleController
      */
     public function suggestUsername(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */
@@ -1363,7 +1363,7 @@ class AccountController extends SimpleController
      */
     public function verify(Request $request, Response $response, $args)
     {
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         /** @var \UserFrosting\Sprinkle\Core\Util\ClassMapper $classMapper */

@@ -72,7 +72,7 @@ class UserController extends SimpleController
             throw new ForbiddenException();
         }
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         // Load the request schema
@@ -237,7 +237,7 @@ class UserController extends SimpleController
         /** @var \UserFrosting\Support\Repository\Repository $config */
         $config = $this->ci->config;
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         // Begin transaction - DB will be rolled back if an exception occurs
@@ -250,12 +250,12 @@ class UserController extends SimpleController
             $message = new TwigMailMessage($this->ci->view, 'mail/password-reset.html.twig');
 
             $message->from($config['address_book.admin'])
-                    ->addEmailRecipient(new EmailRecipient($user->email, $user->full_name))
-                    ->addParams([
-                        'user'         => $user,
-                        'token'        => $passwordReset->getToken(),
-                        'request_date' => Carbon::now()->format('Y-m-d H:i:s'),
-                    ]);
+                ->addEmailRecipient(new EmailRecipient($user->email, $user->full_name))
+                ->addParams([
+                    'user'         => $user,
+                    'token'        => $passwordReset->getToken(),
+                    'request_date' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
 
             $this->ci->mailer->send($message);
         });
@@ -334,7 +334,7 @@ class UserController extends SimpleController
             ]);
         });
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         $ms->addMessageTranslated('success', 'DELETION_SUCCESSFUL', [
@@ -424,10 +424,10 @@ class UserController extends SimpleController
 
         // Join user's most recent activity
         $user = $classMapper->createInstance('user')
-                            ->where('user_name', $user->user_name)
-                            ->joinLastActivity()
-                            ->with('lastActivity', 'group')
-                            ->first();
+            ->where('user_name', $user->user_name)
+            ->joinLastActivity()
+            ->with('lastActivity', 'group')
+            ->first();
 
         /** @var \UserFrosting\Sprinkle\Account\Authorize\AuthorizationManager $authorizer */
         $authorizer = $this->ci->authorizer;
@@ -1164,7 +1164,7 @@ class UserController extends SimpleController
         // Get PUT parameters
         $params = $request->getParsedBody();
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         // Load the request schema
@@ -1364,7 +1364,7 @@ class UserController extends SimpleController
         // Get validated and transformed value
         $fieldValue = $data[$fieldName];
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         // Special checks and transformations for certain fields

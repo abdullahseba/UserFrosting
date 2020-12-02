@@ -11,7 +11,7 @@
 namespace UserFrosting\Sprinkle\Core\Tests\Integration\Twig;
 
 use Mockery;
-use UserFrosting\Sprinkle\Core\Alert\AlertStream;
+use UserFrosting\Sprinkle\Frontend\Alert\AlertStream;
 use UserFrosting\Sprinkle\Frontend\I18n\SiteLocale;
 use UserFrosting\Tests\TestCase;
 

@@ -13,7 +13,7 @@ namespace UserFrosting\Sprinkle\Frontend;
 use RocketTheme\Toolbox\Event\Event;
 use UserFrosting\Sprinkle\Frontend\Csrf\SlimCsrfProvider;
 use UserFrosting\System\Sprinkle\Sprinkle;
-use UserFrosting\Sprinkle\Core\I18n\LocaleServicesProvider;
+use UserFrosting\Sprinkle\Frontend\I18n\LocaleServicesProvider;
 use UserFrosting\Sprinkle\Frontend\I18n\TranslatorServicesProvider;
 
 /**

@@ -10,7 +10,7 @@
 
 namespace UserFrosting\Sprinkle\Core\Tests\Integration\ServicesProvider;
 
-use UserFrosting\Sprinkle\Core\Error\ExceptionHandlerManager;
+use UserFrosting\Sprinkle\Frontend\Error\ExceptionHandlerManager;
 use UserFrosting\Tests\TestCase;
 
 /**

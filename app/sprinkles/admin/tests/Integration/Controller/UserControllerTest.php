@@ -669,7 +669,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($group->id, $editedUser->group->id);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -781,7 +781,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($user->last_name, $editedUser->last_name);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -815,7 +815,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($user->last_name, $editedUser->last_name);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -850,7 +850,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($user->last_name, $editedUser->last_name);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -907,7 +907,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($user->last_name, $editedUser->last_name);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -959,7 +959,7 @@ class UserControllerTest extends TestCase
         $this->assertSame('1', (string) $editedUser->flag_enabled);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -989,7 +989,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(0, $editedUser->flag_enabled);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -1019,7 +1019,7 @@ class UserControllerTest extends TestCase
         $this->assertSame('1', (string) $editedUser->flag_verified);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -1070,7 +1070,7 @@ class UserControllerTest extends TestCase
         $this->assertNotSame('blablabla', $editedUser->password);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);
@@ -1108,7 +1108,7 @@ class UserControllerTest extends TestCase
         $this->assertSame($role->id, $editedUser->roles->first()->id);
 
         // Test message
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $this->assertSame('success', end($messages)['type']);

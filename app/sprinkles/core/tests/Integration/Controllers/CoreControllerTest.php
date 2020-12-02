@@ -10,30 +10,30 @@
 
 namespace UserFrosting\Sprinkle\Core\Tests;
 
-use UserFrosting\Sprinkle\Core\Controller\CoreController;
+use UserFrosting\Sprinkle\Frontend\Controller\FrontendController;
 use UserFrosting\Support\Exception\NotFoundException;
 
 /**
- * Tests CoreController
+ * Tests FrontendController
  */
-class CoreControllerTest extends ControllerTestCase
+class FrontendControllerTest extends ControllerTestCase
 {
     /**
-     * @return CoreController
+     * @return FrontendController
      */
     public function testControllerConstructor()
     {
-        $controller = new CoreController($this->ci);
-        $this->assertInstanceOf(CoreController::class, $controller);
+        $controller = new FrontendController($this->ci);
+        $this->assertInstanceOf(FrontendController::class, $controller);
 
         return $controller;
     }
 
     /**
      * @depends testControllerConstructor
-     * @param CoreController $controller
+     * @param FrontendController $controller
      */
-    public function testPageIndex(CoreController $controller)
+    public function testPageIndex(FrontendController $controller)
     {
         $result = $controller->pageIndex($this->getRequest(), $this->getResponse(), []);
         $this->assertSame($result->getStatusCode(), 200);
@@ -42,9 +42,9 @@ class CoreControllerTest extends ControllerTestCase
 
     /**
      * @depends testControllerConstructor
-     * @param CoreController $controller
+     * @param FrontendController $controller
      */
-    public function testJsonAlerts(CoreController $controller)
+    public function testJsonAlerts(FrontendController $controller)
     {
         $result = $controller->jsonAlerts($this->getRequest(), $this->getResponse(), []);
         $this->assertSame($result->getStatusCode(), 200);
@@ -53,9 +53,9 @@ class CoreControllerTest extends ControllerTestCase
 
     /**
      * @depends testControllerConstructor
-     * @param CoreController $controller
+     * @param FrontendController $controller
      */
-    public function testGetAsset_ExceptionNoUrl(CoreController $controller)
+    public function testGetAsset_ExceptionNoUrl(FrontendController $controller)
     {
         $this->expectException(NotFoundException::class);
         $controller->getAsset($this->getRequest(), $this->getResponse(), []);
@@ -63,9 +63,9 @@ class CoreControllerTest extends ControllerTestCase
 
     /**
      * @depends testControllerConstructor
-     * @param CoreController $controller
+     * @param FrontendController $controller
      */
-    public function testGetAsset_ExceptionBadUrl(CoreController $controller)
+    public function testGetAsset_ExceptionBadUrl(FrontendController $controller)
     {
         $this->expectException(NotFoundException::class);
         $url = '/' . rand(0, 99999);
@@ -74,9 +74,9 @@ class CoreControllerTest extends ControllerTestCase
 
     /**
      * @depends testControllerConstructor
-     * @param CoreController $controller
+     * @param FrontendController $controller
      */
-    public function testGetAsset_ExceptionEmptyUrl(CoreController $controller)
+    public function testGetAsset_ExceptionEmptyUrl(FrontendController $controller)
     {
         $this->expectException(NotFoundException::class);
         $controller->getAsset($this->getRequest(), $this->getResponse(), ['url' => '']);
@@ -86,9 +86,9 @@ class CoreControllerTest extends ControllerTestCase
      * @depends testControllerConstructor
      * @depends testGetAsset_ExceptionNoUrl
      * @depends testGetAsset_ExceptionBadUrl
-     * @param CoreController $controller
+     * @param FrontendController $controller
      */
-    public function testGetAsset(CoreController $controller)
+    public function testGetAsset(FrontendController $controller)
     {
         $result = $controller->getAsset($this->getRequest(), $this->getResponse(), ['url' => 'userfrosting/js/uf-alerts.js']);
         $this->assertSame($result->getStatusCode(), 200);

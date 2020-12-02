@@ -8,7 +8,7 @@
  * @license   https://github.com/userfrosting/UserFrosting/blob/master/LICENSE.md (MIT License)
  */
 
-namespace UserFrosting\Sprinkle\Account\Controller\Exception;
+namespace UserFrosting\Sprinkle\Frontend\Controller\Exception;
 
 use UserFrosting\Support\Exception\HttpException;
 

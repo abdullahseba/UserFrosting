@@ -51,8 +51,8 @@ class AdminController extends SimpleController
 
         // Probably a better way to do this
         $users = $classMapper->getClassMapping('user')::orderBy('created_at', 'desc')
-                 ->take(8)
-                 ->get();
+            ->take(8)
+            ->get();
 
         // Transform the `create_at` date in "x days ago" type of string
         $users->transform(function ($item, $key) {
@@ -121,7 +121,7 @@ class AdminController extends SimpleController
         // Flush cache
         $this->ci->cache->flush();
 
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
 
         $ms->addMessageTranslated('success', 'CACHE.CLEARED');

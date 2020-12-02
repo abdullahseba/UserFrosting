@@ -101,7 +101,7 @@ class AdminControllerTest extends ControllerTestCase
         $this->assertNotSame($value, $cache->get('foo'));
 
         // We can also check AlertStream Integration
-        /** @var \UserFrosting\Sprinkle\Core\Alert\AlertStream $ms */
+        /** @var \UserFrosting\Sprinkle\Frontend\Alert\AlertStream $ms */
         $ms = $this->ci->alerts;
         $messages = $ms->getAndClearMessages();
         $actualMessage = end($messages)['message'];

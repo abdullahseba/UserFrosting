@@ -37,14 +37,14 @@ use UserFrosting\Cache\RedisStore;
 use UserFrosting\Cache\TaggableFileStore;
 use UserFrosting\Config\ConfigPathBuilder;
 use UserFrosting\Session\Session;
-use UserFrosting\Sprinkle\Core\Alert\CacheAlertStream;
-use UserFrosting\Sprinkle\Core\Alert\SessionAlertStream;
+use UserFrosting\Sprinkle\Frontend\Alert\CacheAlertStream;
+use UserFrosting\Sprinkle\Frontend\Alert\SessionAlertStream;
 use UserFrosting\Sprinkle\Core\Csrf\SlimCsrfProvider;
 use UserFrosting\Sprinkle\Core\Database\Migrator\DatabaseMigrationRepository;
 use UserFrosting\Sprinkle\Core\Database\Migrator\MigrationLocator;
 use UserFrosting\Sprinkle\Core\Database\Migrator\Migrator;
 use UserFrosting\Sprinkle\Core\Database\Seeder\Seeder;
-use UserFrosting\Sprinkle\Core\Error\ExceptionHandlerManager;
+use UserFrosting\Sprinkle\Frontend\Error\ExceptionHandlerManager;
 use UserFrosting\Sprinkle\Frontend\Error\Handler\NotFoundExceptionHandler;
 use UserFrosting\Sprinkle\Core\Filesystem\FilesystemManager;
 use UserFrosting\Sprinkle\Core\Log\MixedFormatter;
@@ -82,7 +82,7 @@ class ServicesProvider
          * Persists error/success messages between requests in the session.
          *
          * @throws \Exception                                    If alert storage handler is not supported
-         * @return \UserFrosting\Sprinkle\Core\Alert\AlertStream
+         * @return \UserFrosting\Sprinkle\Frontend\Alert\AlertStream
          */
         $container['alerts'] = function ($c) {
             $config = $c->config;
@@ -348,7 +348,7 @@ class ServicesProvider
         /*
          * Custom error-handler for recoverable errors.
          *
-         * @return \UserFrosting\Sprinkle\Core\Error\ExceptionHandlerManager
+         * @return \UserFrosting\Sprinkle\Frontend\Error\ExceptionHandlerManager
          */
         $container['errorHandler'] = function ($c) {
             $settings = $c->settings;
@@ -362,7 +362,7 @@ class ServicesProvider
             $handler->registerHandler('\UserFrosting\Support\Exception\NotFoundException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\NotFoundExceptionHandler');
 
             // Register the PhpMailerExceptionHandler.
-            $handler->registerHandler('\phpmailerException', '\UserFrosting\Sprinkle\Core\Error\Handler\PhpMailerExceptionHandler');
+            $handler->registerHandler('\phpmailerException', '\UserFrosting\Sprinkle\Frontend\Error\Handler\PhpMailerExceptionHandler');
 
             return $handler;
         };
@@ -500,7 +500,7 @@ class ServicesProvider
          * Error-handler for PHP runtime errors.  Notice that we just pass this through to our general-purpose
          * error-handling service.
          *
-         * @return \UserFrosting\Sprinkle\Core\Error\ExceptionHandlerManager
+         * @return \UserFrosting\Sprinkle\Frontend\Error\ExceptionHandlerManager
          */
         $container['phpErrorHandler'] = function ($c) {
             return $c->errorHandler;
