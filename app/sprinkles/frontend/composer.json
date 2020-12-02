@@ -1,8 +1,15 @@
 {
+  "name": "userfrosting/frontend",
+  "type": "userfrosting-sprinkle",
   "autoload": {
     "psr-4": {
       "UserFrosting\\Sprinkle\\Frontend\\": "src/"
-    }
+    },
+    "autoload-dev": {
+      "psr-4": {
+          "UserFrosting\\Sprinkle\\Frontend\\Tests\\": "tests/"
+      }
+  }
   },
   "require": {
     "slim/csrf": "^0.8",
